@@ -34,9 +34,9 @@ public class Main {
         // ¿Cuántos pasajeros en total han sobrevivido? Clasifícalos por clase y sexo.
 
             System.out.println("¿Cuántos pasajeros en total han sobrevivido?\nOrdenados por clase: ");
-            titanics.stream().collect(Collectors.groupingBy(Titanic::getPclass, Collectors.counting())).entrySet().stream().forEach(System.out::println);
+            titanics.stream().filter(e -> e.getSurvived().equals("1")).collect(Collectors.groupingBy(Titanic::getPclass, Collectors.counting())).entrySet().stream().forEach(System.out::println);
             System.out.println("Ordenados por sexo: ");
-        titanics.stream().collect(Collectors.groupingBy(Titanic::getSex, Collectors.counting())).entrySet().stream().forEach(System.out::println);
+        titanics.stream().filter(e -> e.getSurvived().equals("1")).collect(Collectors.groupingBy(Titanic::getSex, Collectors.counting())).entrySet().stream().forEach(System.out::println);
 
         // ¿Cuál fue el puerto de embarque más común? ¿Hay relación entre el puerto de embarque y la supervivencia?
         System.out.println("¿Cuál fue el puerto de embarque más común? ");
@@ -47,11 +47,25 @@ public class Main {
 
         System.out.println("¿Hay relación entre el puerto de embarque y la supervivencia? ");
 
+        titanics.stream().filter(e -> e.getEmbarked().equals("S"))
+                .filter(e -> e.getSurvived().equals("1"))
+                .collect(Collectors.groupingBy(Titanic::getEmbarked, Collectors.counting()))
+                .entrySet()
+                .forEach(p -> System.out.println("De la puerta " + p.getKey() + " sobrevivieron " + p.getValue()));
+
+        titanics.stream().filter(e -> e.getEmbarked().equalsIgnoreCase("S")).filter(e -> e.getSurvived().equals("1")).collect(Collectors.groupingBy(Titanic::getEmbarked, Collectors.counting())).entrySet().stream().forEach(System.out::println);
+
+        System.out.println( "Número de supervivientes totales: " + titanics.stream().filter(s -> s.getSurvived().equals("1")).count());
 
         // ¿Cuál fue la tasa de supervivencia de los niños (menores de 12 años) en comparación con los adultos?
 
+        System.out.println("¿Cuál fue la tasa de supervivencia de los niños (menores de 12 años) en comparación con los adultos? \n");
 
 
 
+        int jovenesSupervivientes = titanics.stream().filter(n -> !n.getAge().isEmpty()).filter(n -> ((int) Double.parseDouble(n.getAge())) < 12).filter(s -> s.getSurvived().equals("1")).toList().size();
+        int adultosSupervivientes = titanics.stream().filter(n -> !n.getAge().isEmpty()).filter(n -> ((int) Double.parseDouble(n.getAge())) >= 12).filter(s -> s.getSurvived().equals("1")).toList().size();
+
+        System.out.println("Los niños supervivientes son " + jovenesSupervivientes + " y los adultos supervivientes son " + adultosSupervivientes + ", la diferencia de supervivientes es de " + (adultosSupervivientes - jovenesSupervivientes) + " (Quitando la gente q su edad es desconocida).");
     }
 }
