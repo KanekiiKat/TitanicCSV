@@ -15,7 +15,8 @@ public class TitanicBuilder {
             titanicList.add(new Titanic(
                     columna[0], columna[1], columna[2], columna[3],
                     columna[4], columna[5], columna[6], columna[7],
-                    columna[8], columna[9], columna[10], columna[11]
+                    columna[8], columna[9], columna[10], columna[11],
+                    columna[12],columna[13],columna[14]
             ));
         }
         return titanicList;
