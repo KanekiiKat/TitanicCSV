@@ -14,7 +14,8 @@ public class AnaliceCSV {
 
         linesCSV.removeFirst();
 
-        return linesCSV.stream().map(linea -> linea.split(",", -1)).toList();
+
+        return linesCSV.stream().map(linea -> linea.replace('"', ' ').split(",", -1)).toList();
 
     }
 }

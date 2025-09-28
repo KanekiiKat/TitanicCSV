@@ -8,6 +8,7 @@ import java.io.IOException;
 import java.nio.file.Path;
 import java.util.List;
 import java.util.Scanner;
+import java.util.stream.Collectors;
 
 public class Main {
 
@@ -18,13 +19,12 @@ public class Main {
 
         Scanner sc = new Scanner(System.in);
 
-        System.out.println("Ingrese el nombre del archivo: ");
+        System.out.print("Ingrese el nombre del archivo: ");
         String pathString = sc.nextLine();
 
         List<String[]> listaTitanic = AnaliceCSV.analiceCSV(Path.of(pathString));
 
         List<Titanic> titanics  = builder.buildTitanic(listaTitanic);
-
 
 
         // ¿Cuántos pasajeros en total han sobrevivido? Clasifícalos por clase y sexo.

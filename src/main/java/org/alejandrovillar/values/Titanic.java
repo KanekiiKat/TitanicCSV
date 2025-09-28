@@ -68,10 +68,10 @@ public class Titanic {
                 nz(getEmbarked()) + " | " +
                 nz(getBoat()) + " | " +
                 nz(getBody()) + " | " +
-                nz(getHomeDest());
+                nz(getHomeDest()) + "\n";
     }
     private String nz(String s) {
-        return s == null ? "" : s;
+        return s == null ? "Desconocido" : s;
     }
 }
 
